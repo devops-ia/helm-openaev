@@ -55,7 +55,7 @@ jobs:
           signoff: false
           branch: fix/upgrade-openaev-appversion-${{ steps.latest_release.outputs.latest_release }}
           delete-branch: true
-          title: '[openaev] new release: ${{ steps.latest_release.outputs.latest_release }}'
+          title: 'fix: [openaev] new release: ${{ steps.latest_release.outputs.latest_release }}'
           body: |
             OpenAEV version:
             - :information_source: Current: `${{ steps.current_release.outputs.current_release }}`
