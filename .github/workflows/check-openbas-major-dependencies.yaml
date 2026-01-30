@@ -1,5 +1,8 @@
 name: Check OpenAEV major dependencies releases
 
+permissions:
+  contents: read
+
 on:
   workflow_dispatch:
   schedule:
