@@ -11,7 +11,7 @@ sources:
   - https://github.com/devops-ia/helm-openaev
   - https://github.com/OpenAEV-Platform/openaev
 version: 1.0.0
-appVersion: 2.1.6
+appVersion: 2.1.7
 home: https://www.filigran.io/en/solutions/products/openaev/
 keywords:
   - openaev
