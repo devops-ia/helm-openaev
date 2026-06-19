@@ -1,0 +1,13 @@
+{{- if and .Values.caldera.gateway.enabled .Values.caldera.gateway.create -}}
+{{- $fullName := include "openaev.fullname" . -}}
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: {{ $fullName }}-caldera-gateway
+  labels:
+    {{- include "openaev.labels" . | nindent 4 }}
+spec:
+  gatewayClassName: {{ required "caldera.gateway.className is required when caldera.gateway.create is true" .Values.caldera.gateway.className }}
+  listeners:
+    {{- toYaml .Values.caldera.gateway.listeners | nindent 4 }}
+{{- end }}

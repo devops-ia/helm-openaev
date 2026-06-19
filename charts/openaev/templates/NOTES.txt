@@ -4,7 +4,16 @@
 
 Application access:
 
-{{- if .Values.ingress.enabled }}
+{{- if .Values.gateway.enabled }}
+  {{- if .Values.gateway.hostnames }}
+  {{- range .Values.gateway.hostnames }}
+    {{ . }}
+  {{- end }}
+  {{- else }}
+  (Gateway API / HTTPRoute - no hostnames configured)
+  {{- end }}
+  (Gateway API / HTTPRoute)
+{{- else if .Values.ingress.enabled }}
   {{- range $host := .Values.ingress.hosts }}
     {{- range .paths }}
       http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}{{ .path }}
