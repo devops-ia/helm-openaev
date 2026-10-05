@@ -23,7 +23,7 @@ keywords:
   - analysis
 dependencies:
   - name: rustfs
-    version: 1.0.0
+    version: 1.0.1
     repository: https://charts.rustfs.com
     condition: rustfs.enabled
   - name: opensearch

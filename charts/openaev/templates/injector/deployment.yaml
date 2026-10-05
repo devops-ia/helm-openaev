@@ -176,21 +176,6 @@ spec:
             {{- end }}
             {{- end }}
             {{- end }}
-            # Special handling for OPENBAS_URL which is constructed from other values
-            {{- if not (hasKey $envList "OPENBAS_URL") }}
-            {{- if eq $.Values.env.APP__BASE_PATH "/" }}
-            - name: OPENBAS_URL
-              value: "http://{{ include "openaev.fullname" $ }}-server:{{ $.Values.service.port }}"
-            {{- else }}
-            - name: OPENBAS_URL
-              value: "http://{{ include "openaev.fullname" $ }}-server:{{ $.Values.service.port }}{{ $.Values.env.APP__BASE_PATH }}"
-            {{- end }}
-            {{- end }}
-            # Special handling for OPENBAS_ADMIN_TOKEN which is constructed from other values
-            {{- if and (not (hasKey $envList "OPENBAS_ADMIN_TOKEN")) $appAdminToken }}
-            - name: OPENBAS_TOKEN
-              value: {{ $appAdminToken }}
-            {{- end }}
             # Injectors global env from secrets
             {{- if $injectorsGlobal.envFromSecrets }}
             {{- range $key, $value := $injectorsGlobal.envFromSecrets }}
@@ -226,6 +211,19 @@ spec:
             {{- $_ := set $envList $key true }}
             {{- end }}
             {{- end }}
+            {{- end }}
+            {{- if not (hasKey $envList "OPENBAS_URL") }}
+            {{- if eq $.Values.env.APP__BASE_PATH "/" }}
+            - name: OPENBAS_URL
+              value: "http://{{ include "openaev.fullname" $ }}-server:{{ $.Values.service.port }}"
+            {{- else }}
+            - name: OPENBAS_URL
+              value: "http://{{ include "openaev.fullname" $ }}-server:{{ $.Values.service.port }}{{ $.Values.env.APP__BASE_PATH }}"
+            {{- end }}
+            {{- end }}
+            {{- if and (not (hasKey $envList "OPENBAS_TOKEN")) $appAdminToken }}
+            - name: OPENBAS_TOKEN
+              value: {{ $appAdminToken }}
             {{- end }}
           volumeMounts:
             {{- with .volumeMounts }}
