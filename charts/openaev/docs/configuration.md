@@ -25,10 +25,10 @@ Basic config server block to configure:
 
 ```yaml
 env:
-  OPENBAS_ADMIN_EMAIL: admin@openaev.io
-  OPENBAS_ADMIN_PASSWORD: test
-  OPENBAS_ADMIN_TOKEN: b1976749-8a53-4f49-bf04-cafa2a3458c1
-  OPENBAS_COOKIE-SECURE: "true"
+  OPENAEV_ADMIN_EMAIL: admin@openaev.io
+  OPENAEV_ADMIN_PASSWORD: test
+  OPENAEV_ADMIN_TOKEN: b1976749-8a53-4f49-bf04-cafa2a3458c1
+  OPENAEV_COOKIE-SECURE: "true"
   INJECTOR_CALDERA_URL: http://openaev-ci-caldera:8888
   INJECTOR_CALDERA_PUBLIC_URL: http://openaev-ci-caldera:8888
   INJECTOR_CALDERA_API_KEY: 238cab90-5a9e-4c6f-8c7c-4ae07a50513f
@@ -154,11 +154,11 @@ Server block to configure RabbitMQ:
 ```yaml
 env:
 ...
-  OPENBAS_RABBITMQ_HOSTNAME: <release-name>-rabbitmq
-  OPENBAS_RABBITMQ_MANAGEMENT-PORT: 15672
-  OPENBAS_RABBITMQ_PORT: 5672
-  OPENBAS_RABBITMQ_USER: user
-  OPENBAS_RABBITMQ_PASS: ChangeMe
+  OPENAEV_RABBITMQ_HOSTNAME: <release-name>-rabbitmq
+  OPENAEV_RABBITMQ_MANAGEMENT-PORT: 15672
+  OPENAEV_RABBITMQ_PORT: 5672
+  OPENAEV_RABBITMQ_USER: user
+  OPENAEV_RABBITMQ_PASS: ChangeMe
 ```
 
 Basic config:
