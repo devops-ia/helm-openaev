@@ -2098,7 +2098,7 @@
           "properties": {
             "repository": {
               "type": "string",
-              "default": "openaev/caldera-server",
+              "default": "openbas/caldera-server",
               "description": "Repository of the image"
             },
             "pullPolicy": {

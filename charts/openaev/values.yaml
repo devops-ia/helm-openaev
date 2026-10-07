@@ -843,7 +843,7 @@ caldera:
   # -- Image registry configuration for the base service
   image:
     # -- Repository of the image
-    repository: openaev/caldera-server
+    repository: openbas/caldera-server
     # -- Pull policy for the image
     pullPolicy: IfNotPresent
     # -- Overrides the image tag whose default is the chart appVersion
