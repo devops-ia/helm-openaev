@@ -111,26 +111,34 @@
       "type": "object",
       "description": "Environment variables to configure application",
       "properties": {
-        "OPENBAS_ADMIN_EMAIL": {
+        "OPENAEV_ADMIN_EMAIL": {
           "type": "string",
           "format": "email",
           "default": "admin@openaev.io",
           "description": "Admin email address"
         },
-        "OPENBAS_ADMIN_PASSWORD": {
+        "OPENAEV_ADMIN_PASSWORD": {
           "type": "string",
           "description": "Admin password"
         },
-        "OPENBAS_ADMIN_TOKEN": {
+        "OPENAEV_ADMIN_TOKEN": {
           "type": "string",
           "description": "Admin token"
         },
-        "OPENBAS_AUTH-LOCAL-ENABLE": {
+        "OPENAEV_ADMIN_ENCRYPTION_KEY": {
+          "type": "string",
+          "description": "Encryption key"
+        },
+        "OPENAEV_ADMIN_ENCRYPTION_SALT": {
+          "type": "string",
+          "description": "Encryption salt (at least 8 bytes)"
+        },
+        "OPENAEV_AUTH-LOCAL-ENABLE": {
           "type": "boolean",
           "default": true,
           "description": "Enable local authentication"
         },
-        "OPENBAS_BASE-URL": {
+        "OPENAEV_BASE-URL": {
           "type": "string",
           "default": "http://localhost:8080",
           "description": "Base URL for the application"
@@ -173,25 +181,25 @@
           "type": "string",
           "description": "PostgreSQL password"
         },
-        "OPENBAS_RABBITMQ_HOSTNAME": {
+        "OPENAEV_RABBITMQ_HOSTNAME": {
           "type": "string",
           "description": "RabbitMQ hostname"
         },
-        "OPENBAS_RABBITMQ_MANAGEMENT-PORT": {
+        "OPENAEV_RABBITMQ_MANAGEMENT-PORT": {
           "type": "integer",
           "default": 15672,
           "description": "RabbitMQ management port"
         },
-        "OPENBAS_RABBITMQ_PORT": {
+        "OPENAEV_RABBITMQ_PORT": {
           "type": "integer",
           "default": 5672,
           "description": "RabbitMQ port"
         },
-        "OPENBAS_RABBITMQ_USER": {
+        "OPENAEV_RABBITMQ_USER": {
           "type": "string",
           "description": "RabbitMQ username"
         },
-        "OPENBAS_RABBITMQ_PASS": {
+        "OPENAEV_RABBITMQ_PASS": {
           "type": "string",
           "description": "RabbitMQ password"
         }
@@ -2098,7 +2106,7 @@
           "properties": {
             "repository": {
               "type": "string",
-              "default": "openaev/caldera-server",
+              "default": "openbas/caldera-server",
               "description": "Repository of the image"
             },
             "pullPolicy": {

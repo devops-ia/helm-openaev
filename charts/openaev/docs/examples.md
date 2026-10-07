@@ -116,8 +116,8 @@ collectors:
   image:
     repository: openaev/collector-microsoft-entra
   env:
-    OPENBAS_URL: "XXXX"
-    OPENBAS_TOKEN: "XXXX"
+    OPENAEV_URL: "XXXX"
+    OPENAEV_TOKEN: "XXXX"
     COLLECTOR_ID: ChangeMe
     COLLECTOR_NAME: "Microsoft Entra"
     COLLECTOR_LOG_LEVEL: error
@@ -181,8 +181,8 @@ injectors:
   image:
     repository: openaev/injector-http-query
   env:
-    OPENBAS_URL: "XXXX"
-    OPENBAS_TOKEN: "XXXX"
+    OPENAEV_URL: "XXXX"
+    OPENAEV_TOKEN: "XXXX"
     INJECTOR_ID: ChangeMe
     INJECTOR_NAME: "HTTP query"
     INJECTOR_LOG_LEVEL: error

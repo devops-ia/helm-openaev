@@ -5,9 +5,11 @@ strategy:
   type: Recreate
 
 env:
-  # OPENBAS
-  OPENBAS_ADMIN_EMAIL: admin@openaev.io
-  OPENBAS_BASE-URL: http://openaev-ci-server:80
+  # OPENAEV
+  OPENAEV_ADMIN_EMAIL: admin@openaev.io
+  OPENAEV_BASE-URL: http://openaev-ci-server:80
+  # show startup errors in CI logs (upstream default is fatal)
+  LOGGING_LEVEL_ROOT: error
 
   # CALDERA
   INJECTOR_CALDERA_PUBLIC_URL: http://openaev-ci-caldera:8888
@@ -21,22 +23,28 @@ env:
   MINIO_ENDPOINT: openaev-ci-rustfs-svc
 
   # MESSAGE QUEUE
-  OPENBAS_RABBITMQ_HOSTNAME: openaev-ci-rabbitmq
-  OPENBAS_RABBITMQ_MANAGEMENT-PORT: 15672
-  OPENBAS_RABBITMQ_PORT: 5672
-  OPENBAS_RABBITMQ_USER: user
+  OPENAEV_RABBITMQ_HOSTNAME: openaev-ci-rabbitmq
+  OPENAEV_RABBITMQ_MANAGEMENT-PORT: 15672
+  OPENAEV_RABBITMQ_PORT: 5672
+  OPENAEV_RABBITMQ_USER: user
 
   # POSTGRESQL
   SPRING_DATASOURCE_URL: jdbc:postgresql://openaev-ci-postgresql:5432/openaev
   SPRING_DATASOURCE_USERNAME: user
 
 envFromSecrets:
-  OPENBAS_ADMIN_PASSWORD:
+  OPENAEV_ADMIN_PASSWORD:
     name: openaev-ci-credentials
-    key: OPENBAS_ADMIN_PASSWORD
-  OPENBAS_ADMIN_TOKEN:
+    key: OPENAEV_ADMIN_PASSWORD
+  OPENAEV_ADMIN_TOKEN:
     name: openaev-ci-credentials
-    key: OPENBAS_ADMIN_TOKEN
+    key: OPENAEV_ADMIN_TOKEN
+  OPENAEV_ADMIN_ENCRYPTION_KEY:
+    name: openaev-ci-credentials
+    key: OPENAEV_ADMIN_ENCRYPTION_KEY
+  OPENAEV_ADMIN_ENCRYPTION_SALT:
+    name: openaev-ci-credentials
+    key: OPENAEV_ADMIN_ENCRYPTION_SALT
   INJECTOR_CALDERA_API_KEY:
     name: openaev-ci-credentials
     key: INJECTOR_CALDERA_API_KEY
@@ -46,7 +54,7 @@ envFromSecrets:
   MINIO_ACCESS-SECRET:
     name: openaev-ci-rustfs-secret
     key: RUSTFS_SECRET_KEY
-  OPENBAS_RABBITMQ_PASS:
+  OPENAEV_RABBITMQ_PASS:
     name: openaev-ci-rabbitmq
     key: rabbitmq-password
   SPRING_DATASOURCE_PASSWORD:
@@ -56,8 +64,10 @@ envFromSecrets:
 secrets:
   - name: credentials
     data:
-      OPENBAS_ADMIN_PASSWORD: dklfjkldsjnfai98y7dsaqd
-      OPENBAS_ADMIN_TOKEN: b1976749-8a53-4f49-bf04-cafa2a3458c1
+      OPENAEV_ADMIN_PASSWORD: dklfjkldsjnfai98y7dsaqd
+      OPENAEV_ADMIN_TOKEN: b1976749-8a53-4f49-bf04-cafa2a3458c1
+      OPENAEV_ADMIN_ENCRYPTION_KEY: 3f2a9c1e7b6d4e8f9a0b1c2d3e4f5a6b
+      OPENAEV_ADMIN_ENCRYPTION_SALT: 8c7d6e5f4a3b2c1d
       INJECTOR_CALDERA_API_KEY: 0ce2182d-3e1a-4117-a1d4-8100a7b01d82
 
 testConnection: true
@@ -119,11 +129,10 @@ service:
 
 resources:
   requests:
-    memory: "512Mi"
-    cpu: "250m"
-  limits:
     memory: "1Gi"
     cpu: "500m"
+  limits:
+    memory: "2Gi"
 
 autoscaling:
   enabled: true
@@ -141,7 +150,7 @@ topologySpreadConstraints:
         app.kubernetes.io/name: openaev
 
 ##
-# OPENBAS CALDERA
+# OPENAEV CALDERA
 caldera:
   enabled: true
 
@@ -256,15 +265,15 @@ caldera:
   dnsPolicy: ClusterFirst
 
 ##
-# OPENBAS COLLECTOR
+# OPENAEV COLLECTOR
 collectorsGlobal:
   env:
-    OPENBAS_URL: http://openaev-ci-server:80
+    OPENAEV_URL: http://openaev-ci-server:80
 
   envFromSecrets:
-    OPENBAS_TOKEN:
+    OPENAEV_TOKEN:
       name: openaev-ci-credentials
-      key: OPENBAS_ADMIN_TOKEN
+      key: OPENAEV_ADMIN_TOKEN
 
 collectors:
   - name: atomic-red-team
@@ -340,7 +349,7 @@ collectors:
       type: Recreate
 
 ##
-# OPENBAS INJECTOR
+# OPENAEV INJECTOR
 injectors:
   - name: http-query
     enabled: true
@@ -387,9 +396,9 @@ injectors:
       INJECTOR_LOG_LEVEL: error
 
     envFromSecrets:
-      OPENBAS_TOKEN:
+      OPENAEV_TOKEN:
         name: openaev-ci-credentials
-        key: OPENBAS_ADMIN_TOKEN
+        key: OPENAEV_ADMIN_TOKEN
 
     envFromFiles:
       - secretRef:

@@ -58,12 +58,14 @@ testConnection: false
 # -- Environment variables to configure application
 # </br> Ref: https://docs.openaev.io/latest/deployment/configuration/#platform
 env:
-  # APP OPENBAS
-  OPENBAS_ADMIN_EMAIL: admin@openaev.io
-  OPENBAS_ADMIN_PASSWORD: ChangeMe
-  OPENBAS_ADMIN_TOKEN: ChangeMe
-  OPENBAS_AUTH-LOCAL-ENABLE: true
-  OPENBAS_BASE-URL: "http://localhost:8080"
+  # APP OPENAEV
+  OPENAEV_ADMIN_EMAIL: admin@openaev.io
+  OPENAEV_ADMIN_PASSWORD: ChangeMe
+  OPENAEV_ADMIN_TOKEN: ChangeMe
+  OPENAEV_ADMIN_ENCRYPTION_KEY: ChangeMe
+  OPENAEV_ADMIN_ENCRYPTION_SALT: ChangeMe
+  OPENAEV_AUTH-LOCAL-ENABLE: true
+  OPENAEV_BASE-URL: "http://localhost:8080"
   SERVER_ADDRESS: "0.0.0.0"
   SERVER_PORT: 8080
   # CALDERA
@@ -77,11 +79,11 @@ env:
   SPRING_DATASOURCE_USERNAME: user
   SPRING_DATASOURCE_PASSWORD: ChangeMe
   # RABBITMQ
-  OPENBAS_RABBITMQ_HOSTNAME: release-name-rabbitmq
-  OPENBAS_RABBITMQ_MANAGEMENT-PORT: 15672
-  OPENBAS_RABBITMQ_PORT: 5672
-  OPENBAS_RABBITMQ_USER: user
-  OPENBAS_RABBITMQ_PASS: ChangeMe
+  OPENAEV_RABBITMQ_HOSTNAME: release-name-rabbitmq
+  OPENAEV_RABBITMQ_MANAGEMENT-PORT: 15672
+  OPENAEV_RABBITMQ_PORT: 5672
+  OPENAEV_RABBITMQ_USER: user
+  OPENAEV_RABBITMQ_PASS: ChangeMe
 
 # -- Variables from configMap
 envFromConfigMap: {}
@@ -843,7 +845,7 @@ caldera:
   # -- Image registry configuration for the base service
   image:
     # -- Repository of the image
-    repository: openaev/caldera-server
+    repository: openbas/caldera-server
     # -- Pull policy for the image
     pullPolicy: IfNotPresent
     # -- Overrides the image tag whose default is the chart appVersion

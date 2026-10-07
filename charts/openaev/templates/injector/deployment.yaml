@@ -1,11 +1,11 @@
 {{- $appAdminToken := "" -}}
 {{- range .Values.secrets -}}
-  {{- if and (hasKey .data "OPENBAS_ADMIN_TOKEN") (not $appAdminToken) -}}
-    {{- $appAdminToken = index .data "OPENBAS_ADMIN_TOKEN" -}}
+  {{- if and (hasKey .data "OPENAEV_ADMIN_TOKEN") (not $appAdminToken) -}}
+    {{- $appAdminToken = index .data "OPENAEV_ADMIN_TOKEN" -}}
   {{- end -}}
 {{- end -}}
-{{- if and (hasKey .Values.env "OPENBAS_ADMIN_TOKEN") (not $appAdminToken) -}}
-  {{- $appAdminToken = .Values.env.OPENBAS_ADMIN_TOKEN -}}
+{{- if and (hasKey .Values.env "OPENAEV_ADMIN_TOKEN") (not $appAdminToken) -}}
+  {{- $appAdminToken = .Values.env.OPENAEV_ADMIN_TOKEN -}}
 {{- end -}}
 
 {{- $injectorsGlobal := .Values.injectorsGlobal }}
@@ -212,17 +212,17 @@ spec:
             {{- end }}
             {{- end }}
             {{- end }}
-            {{- if not (hasKey $envList "OPENBAS_URL") }}
+            {{- if not (hasKey $envList "OPENAEV_URL") }}
             {{- if eq $.Values.env.APP__BASE_PATH "/" }}
-            - name: OPENBAS_URL
+            - name: OPENAEV_URL
               value: "http://{{ include "openaev.fullname" $ }}-server:{{ $.Values.service.port }}"
             {{- else }}
-            - name: OPENBAS_URL
+            - name: OPENAEV_URL
               value: "http://{{ include "openaev.fullname" $ }}-server:{{ $.Values.service.port }}{{ $.Values.env.APP__BASE_PATH }}"
             {{- end }}
             {{- end }}
-            {{- if and (not (hasKey $envList "OPENBAS_TOKEN")) $appAdminToken }}
-            - name: OPENBAS_TOKEN
+            {{- if and (not (hasKey $envList "OPENAEV_TOKEN")) $appAdminToken }}
+            - name: OPENAEV_TOKEN
               value: {{ $appAdminToken }}
             {{- end }}
           volumeMounts:

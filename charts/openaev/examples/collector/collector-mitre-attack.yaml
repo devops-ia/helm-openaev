@@ -5,8 +5,8 @@
   replicas: 1
   image: {}
   env:
-    OPENBAS_URL: http://localhost
-    OPENBAS_TOKEN: ChangeMe
+    OPENAEV_URL: http://localhost
+    OPENAEV_TOKEN: ChangeMe
     COLLECTOR_ID: ChangeMe
     COLLECTOR_NAME: "MITRE ATT&CK"
     COLLECTOR_LOG_LEVEL: error

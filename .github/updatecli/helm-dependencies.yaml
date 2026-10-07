@@ -2,7 +2,7 @@ sources:
   caldera:
     kind: dockerimage
     spec:
-      image: openaev/caldera-server
+      image: openbas/caldera-server
       architecture: linux/amd64
       versionFilter:
         kind: semver
