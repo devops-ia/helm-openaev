@@ -15,7 +15,9 @@ spec:
       {{- else }}
       image: busybox
       {{- end }}
-      command: ['wget']
-      args: ['{{ include "openaev.fullname" . }}-server:{{ .Values.service.port }}']
+      # the server can still be booting after an upgrade, so retry for up to 5 minutes
+      command: ['sh', '-c']
+      args:
+        - for i in $(seq 60); do wget -q -O /dev/null {{ include "openaev.fullname" . }}-server:{{ .Values.service.port }} && exit 0; sleep 5; done; exit 1
   restartPolicy: Never
 {{ end }}

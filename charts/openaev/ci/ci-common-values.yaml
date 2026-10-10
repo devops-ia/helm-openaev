@@ -91,7 +91,7 @@ livenessProbe:
   enabled: false
 
 readinessProbe:
-  enabled: false
+  enabled: true
 
 startupProbe:
   enabled: false
