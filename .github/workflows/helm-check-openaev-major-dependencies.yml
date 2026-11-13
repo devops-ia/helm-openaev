@@ -34,8 +34,7 @@ jobs:
 
       - name: Update dependencies
         run: |
-          updatecli apply --config .github/updatecli/helm-dependencies.yaml --commit=false 2>&1 | tee > $GITHUB_WORKSPACE/major-output.log
-          cat $GITHUB_WORKSPACE/major-output.log
+          updatecli apply --config .github/updatecli/helm-dependencies.yaml --commit=false 2>&1 | tee "$GITHUB_WORKSPACE/major-output.log"
         shell: bash
         env:
           UPDATECLI_GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
@@ -60,7 +59,7 @@ jobs:
           signoff: false
           branch: fix/upgrade-openaev-major-dependencies-${{ steps.date.outputs.date }}
           delete-branch: true
-          title: '[openaev] upgrade major dependencies (${{ steps.date.outputs.date }})'
+          title: 'fix: [openaev] upgrade major dependencies (${{ steps.date.outputs.date }})'
           body-path: major-output.log
           draft: true
           labels: |
@@ -76,7 +75,7 @@ jobs:
           signoff: false
           branch: fix/upgrade-openaev-major-dependencies-${{ steps.date.outputs.date }}
           delete-branch: true
-          title: '[openaev] upgrade major dependencies (${{ steps.date.outputs.date }})'
+          title: 'fix: [openaev] upgrade major dependencies (${{ steps.date.outputs.date }})'
           body-path: major-output.log
           labels: |
             auto-pr-bump-version

@@ -5,7 +5,7 @@ kind: Gateway
 metadata:
   name: {{ $fullName }}-gateway
   labels:
-    {{- include "openaev.labels" . | nindent 4 }}
+    {{- include "openaev.serverLabels" . | nindent 4 }}
 spec:
   gatewayClassName: {{ required "gateway.className is required when gateway.create is true" .Values.gateway.className }}
   listeners:

@@ -7,6 +7,7 @@
 ## Prerequisites
 
 * Helm 3+
+* Kubernetes 1.23+
 
 {{ template "chart.requirementsSection" . }}
 
@@ -54,6 +55,26 @@ _See [helm uninstall](https://helm.sh/docs/helm/helm_uninstall/) for command doc
 ## Basic installation and examples
 
 See [basic installation](docs/configuration.md) and [examples](docs/examples.md).
+
+## Upgrades
+
+* [Upgrade guide: v2 to v3](docs/guides/UPGRADE-v2-to-v3.md)
+* [Upgrade guide: v1 to v2](docs/guides/UPGRADE-v1-to-v2.md)
+
+## Sizing
+
+Minimum sizing from the [upstream documentation](https://docs.openaev.io/latest/deployment/platform/overview/):
+
+| Component | CPU | Memory | Disk | In this chart |
+|---|---|---|---|---|
+| OpenAEV server | 2 cores | 8 GB | none | chart default (requests) |
+| Collector, injector | 1 core | 128 MB | none | set per item |
+| PostgreSQL | 2 cores | 8 GB | 16 GB SSD | set `postgresql.primary.resources` |
+| OpenSearch / Elasticsearch | 2 cores | 8 GB | 16 GB SSD | set `opensearch.resources` |
+| RabbitMQ | 1 core | 512 MB | 2 GB | set `rabbitmq.resources` |
+| S3 storage (RustFS) | 1 core | 128 MB | 16 GB SSD | set `rustfs.resources` |
+
+The server requests 2 CPU and 8Gi by default, so it will not schedule on a small node. Lower `resources.requests` for local or test clusters, as [`ci/ci-standalone-values.yaml`](./ci/ci-standalone-values.yaml) does. The bundled dependencies keep small defaults and no persistence. Size them before going to production.
 
 ## Configuration
 

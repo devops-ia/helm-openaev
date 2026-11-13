@@ -25,10 +25,13 @@ sources:
         kind: semver
         pattern: '*' # replace with CI/CD updatecli
     sourceid: opensearch
+  # postgresql and rabbitmq have no target on purpose: their images are pinned
+  # to bitnamilegacy, so the charts are bumped by hand. The sources stay because
+  # the dependency workflows set a version pattern on every Chart.yaml dependency.
   postgresql:
     kind: helmchart
     spec:
-      url: https://charts.bitnami.com/bitnami
+      url: oci://registry-1.docker.io/bitnamicharts
       name: postgresql
       versionFilter:
         kind: semver
@@ -37,7 +40,7 @@ sources:
   rabbitmq:
     kind: helmchart
     spec:
-      url: https://charts.bitnami.com/bitnami
+      url: oci://registry-1.docker.io/bitnamicharts
       name: rabbitmq
       versionFilter:
         kind: semver
