@@ -1,8 +1,9 @@
 apiVersion: v2
 name: openaev
-description: A Helm chart to deploy Open Breach and Attack Simulation platform
-icon: https://raw.githubusercontent.com/OpenCTI-Platform/docs/da9fcbaea4c1f02f86eca1bb8099876858082e13/docs/assets/images/favicon.png
+description: A Helm chart to deploy the OpenAEV adversarial exposure validation platform
+icon: https://raw.githubusercontent.com/OpenAEV-Platform/docs/f4ca064020d75f4cf6776ab6825c9cb0ae25f03e/docs/assets/images/favicon.png
 type: application
+kubeVersion: ">=1.23.0-0"
 maintainers:
   - name: ialejandro
     email: hello@ialejandro.rocks
@@ -21,6 +22,16 @@ keywords:
   - breach-simulator
   - threat
   - analysis
+annotations:
+  artifacthub.io/license: MIT
+  artifacthub.io/category: security
+  artifacthub.io/links: |
+    - name: Documentation
+      url: https://docs.openaev.io
+    - name: source
+      url: https://github.com/devops-ia/helm-openaev
+    - name: support
+      url: https://github.com/devops-ia/helm-openaev/issues
 dependencies:
   - name: rustfs
     version: 1.0.4

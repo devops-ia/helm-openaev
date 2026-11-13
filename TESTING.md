@@ -1,6 +1,6 @@
-# Testing OpenCTI Helm Chart
+# Testing OpenAEV Helm Chart
 
-This document provides guidelines for testing the OpenCTI Helm chart. Follow these instructions to ensure the chart works as expected before deployment to production.
+This document provides guidelines for testing the OpenAEV Helm chart. Follow these instructions to ensure the chart works as expected before deployment to production.
 
 ## Steps
 
@@ -23,7 +23,8 @@ helm template openaev charts/openaev --debug
 ```bash
 # Install the chart in a test namespace
 kubectl create namespace openaev-test
-helm install openaev-test charts/openaev --namespace openaev-test
+helm install openaev-test charts/openaev --namespace openaev-test \
+  --values charts/openaev/ci/ci-standalone-values.yaml
 ```
 
 ### 4. Verification steps
@@ -48,27 +49,24 @@ kubectl port-forward svc/openaev-test 8080:8080 -n openaev-test
 
 4. Validate component health:
 
-- OpenCTI platform UI accessibility
-- ElasticSearch connection
+- OpenAEV platform UI accessibility
+- OpenSearch connection
+- PostgreSQL connection
 - RabbitMQ status
 - RustFS/S3 connectivity
-- Redis cluster status
 
 ### 5. Functional testing
 
-1. **Platform Login**
-   - Verify default admin credentials work
+1. **Platform login**
+   - Verify the admin credentials work
    - Test SSO if configured
 
-2. **Data Operations**
-   - Create a test entity
-   - Import a sample STIX bundle
-   - Verify connectors are working
+2. **Simulations**
+   - Create a test scenario
+   - Launch a simulation with a manual inject
 
-3. **Integration Testing**
-   - Test configured connectors
-   - Verify data ingestion
-   - Check export functionality
+3. **Integrations**
+   - Check that the configured collectors and injectors register in the platform
 
 ### 6. Upgrade testing
 
@@ -95,5 +93,5 @@ For CI/CD pipelines, you can use the following tools:
 Example CI test command:
 
 ```bash
-ct lint-and-install --config ct.yaml
+ct lint-and-install --config .github/ct.yaml
 ```

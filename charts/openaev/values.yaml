@@ -57,7 +57,7 @@ testConnection: false
 
 # -- Environment variables to configure application
 # </br> Ref: https://docs.openaev.io/latest/deployment/configuration/#platform
-env:
+env:  # @schema skipProperties:true
   # APP OPENAEV
   OPENAEV_ADMIN_EMAIL: admin@openaev.io
   OPENAEV_ADMIN_PASSWORD: ChangeMe
@@ -345,7 +345,7 @@ readyChecker:
   # -- Pull policy for the image
   pullPolicy: IfNotPresent
   # -- Overrides the image tag
-  tag: latest
+  tag: 1.37.0
   # -- Number of retries before giving up
   retries: 30
   # -- Timeout for each check
@@ -449,19 +449,20 @@ gateway:
 
 # -- The resources limits and requested
 # </br> Ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-resources: {}
-# limits:
-#   cpu: "1500m"
-#   memory: 2048Mi
-# requests:
-#   cpu: 1
-#   memory: 256Mi
+# </br> Defaults follow the OpenAEV Core minimum (2 cores, 8 GB).
+# </br> Ref: https://docs.openaev.io/latest/deployment/platform/overview/
+resources:  # @schema skipProperties:true
+  requests:
+    cpu: 2
+    memory: 8Gi
+  # limits:
+  #   memory: 8Gi
 
 # -- Pod Disruption Budget
 # </br> Ref: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/pod-disruption-budget-v1/
 podDisruptionBudget:
   enabled: false
-  maxUnavailable: 1
+  maxUnavailable: 1  # @schema type:[integer, string]
   # minAvailable: 0
 
 # -- Autoscaling with CPU or memory utilization percentage
@@ -619,13 +620,13 @@ collectors: []
 #     #   readOnly: true
 #
 #   # Resources and scheduling
+#   # Documented minimum: 1 core, 128 MB
 #   resources: {}
+#     # requests:
+#     #   cpu: 1
+#     #   memory: 128Mi
 #     # limits:
 #     #   memory: 256Mi
-#     #   cpu: "250m"
-#     # requests:
-#     #   memory: 56Mi
-#     #   cpu: "50m"
 #   nodeSelector: {}
 #   tolerations: []
 #     # - key: "nodepool"
@@ -773,13 +774,13 @@ injectors: []
 #     #   readOnly: true
 #
 #   # Resources and scheduling
+#   # Documented minimum: 1 core, 128 MB
 #   resources: {}
+#     # requests:
+#     #   cpu: 1
+#     #   memory: 128Mi
 #     # limits:
 #     #   memory: 256Mi
-#     #   cpu: "250m"
-#     # requests:
-#     #   memory: 56Mi
-#     #   cpu: "50m"
 #   nodeSelector: {}
 #   tolerations: []
 #     # - key: "nodepool"
@@ -1147,23 +1148,19 @@ caldera:
 
   # -- The resources limits and requested
   # </br> Ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-  resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'
-  # limits:
-  #   cpu: "250m"
-  #   memory: 256Mi
-  # requests:
-  #   cpu: "100m"
-  #   memory: 56Mi
+  # </br> The OpenAEV docs give no sizing for Caldera; adjust to your workload.
+  resources:  # @schema skipProperties:true
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    # limits:
+    #   memory: 512Mi
 
   # -- Pod Disruption Budget
   # </br> Ref: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/pod-disruption-budget-v1/
   podDisruptionBudget:
     enabled: false
-    maxUnavailable: 1
+    maxUnavailable: 1  # @schema type:[integer, string]
     # minAvailable: 0
 
   # -- Autoscaling with CPU or memory utilization percentage
@@ -1230,7 +1227,8 @@ caldera:
 
 # -- OpenSearch subchart deployment
 # </br> Ref: https://github.com/opensearch-project/helm-charts/blob/main/charts/opensearch/values.yaml
-opensearch:
+# </br> Recommended for production: 2 cores, 8 GB RAM, 16 GB SSD. Defaults stay small; set resources and persistence yourself.
+opensearch:  # @schema skipProperties:true
   # -- Enable or disable OpenSearch subchart
   enabled: true
 
@@ -1249,7 +1247,8 @@ opensearch:
 
 # -- RustFS subchart deployment (S3-compatible object storage, standalone mode)
 # </br> Ref: https://github.com/rustfs/rustfs/tree/main/helm/rustfs
-rustfs:
+# </br> Recommended for production: 1 core, 128 MB RAM, 16 GB SSD. Defaults stay small; set resources and persistence yourself.
+rustfs:  # @schema skipProperties:true
   # -- Enable or disable RustFS subchart
   enabled: true
 
@@ -1284,13 +1283,14 @@ rustfs:
     name: ""
 
   # Resources
-  resources:
+  resources:  # @schema skipProperties:true
     requests:
       memory: 512Mi
 
 # -- PostgreSQL subchart deployment
 # </br> Ref: https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml
-postgresql:
+# </br> Recommended for production: 2 cores, 8 GB RAM, 16 GB SSD. Defaults stay small; set resources and persistence yourself.
+postgresql:  # @schema skipProperties:true
   # -- Enable or disable PostgreSQL subchart
   enabled: true
 
@@ -1323,7 +1323,8 @@ postgresql:
 
 # -- RabbitMQ subchart deployment
 # </br> Ref: https://github.com/bitnami/charts/blob/main/bitnami/rabbitmq/values.yaml
-rabbitmq:
+# </br> Recommended for production: 1 core, 512 MB RAM, 2 GB disk. Defaults stay small; set resources and persistence yourself.
+rabbitmq:  # @schema skipProperties:true
   # -- Enable or disable RabbitMQ subchart
   enabled: true
 

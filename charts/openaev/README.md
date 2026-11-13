@@ -1,6 +1,6 @@
 # openaev
 
-A Helm chart to deploy Open Breach and Attack Simulation platform
+A Helm chart to deploy the OpenAEV adversarial exposure validation platform
 
 ## Maintainers
 
@@ -11,8 +11,11 @@ A Helm chart to deploy Open Breach and Attack Simulation platform
 ## Prerequisites
 
 * Helm 3+
+* Kubernetes 1.23+
 
 ## Requirements
+
+Kubernetes: `>=1.23.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
@@ -66,6 +69,26 @@ _See [helm uninstall](https://helm.sh/docs/helm/helm_uninstall/) for command doc
 
 See [basic installation](docs/configuration.md) and [examples](docs/examples.md).
 
+## Upgrades
+
+* [Upgrade guide: v2 to v3](docs/guides/UPGRADE-v2-to-v3.md)
+* [Upgrade guide: v1 to v2](docs/guides/UPGRADE-v1-to-v2.md)
+
+## Sizing
+
+Minimum sizing from the [upstream documentation](https://docs.openaev.io/latest/deployment/platform/overview/):
+
+| Component | CPU | Memory | Disk | In this chart |
+|---|---|---|---|---|
+| OpenAEV server | 2 cores | 8 GB | none | chart default (requests) |
+| Collector, injector | 1 core | 128 MB | none | set per item |
+| PostgreSQL | 2 cores | 8 GB | 16 GB SSD | set `postgresql.primary.resources` |
+| OpenSearch / Elasticsearch | 2 cores | 8 GB | 16 GB SSD | set `opensearch.resources` |
+| RabbitMQ | 1 core | 512 MB | 2 GB | set `rabbitmq.resources` |
+| S3 storage (RustFS) | 1 core | 128 MB | 16 GB SSD | set `rustfs.resources` |
+
+The server requests 2 CPU and 8Gi by default, so it will not schedule on a small node. Lower `resources.requests` for local or test clusters, as [`ci/ci-standalone-values.yaml`](./ci/ci-standalone-values.yaml) does. The bundled dependencies keep small defaults and no persistence. Size them before going to production.
+
 ## Configuration
 
 See [Customizing the chart before installing](https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing). To see all configurable options with comments:
@@ -81,7 +104,7 @@ helm show values openaev/openaev
 | affinity | object | `{}` | Affinity for pod assignment </br> Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity |
 | args | list | `[]` | Configure args </br> Ref: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/ |
 | autoscaling | object | `{"enabled":false,"maxReplicas":100,"minReplicas":1,"targetCPUUtilizationPercentage":80}` | Autoscaling with CPU or memory utilization percentage </br> Ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/ |
-| caldera | object | `{"affinity":{},"args":[],"autoscaling":{"enabled":false,"maxReplicas":100,"minReplicas":1,"targetCPUUtilizationPercentage":80},"command":[],"config":{},"dnsConfig":{},"dnsPolicy":"ClusterFirst","enabled":true,"env":{},"envFromSecrets":{},"gateway":{"annotations":{},"className":"","create":false,"enabled":false,"filters":[],"hostnames":[],"labels":{},"listeners":[{"name":"http","port":80,"protocol":"HTTP"}],"parentRefs":[{"name":"","namespace":""}],"rules":[{"matches":[{"path":{"type":"PathPrefix","value":"/"}}]}]},"image":{"pullPolicy":"IfNotPresent","repository":"openbas/caldera-server","tag":"5.1.0"},"imagePullSecrets":[],"ingress":{"annotations":{},"className":"","enabled":false,"hosts":[{"host":"chart-example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}],"tls":[]},"initContainers":[],"lifecycle":{},"networkPolicy":{"egress":[],"enabled":false,"ingress":[],"policyTypes":[]},"nodeSelector":{},"podAnnotations":{},"podDisruptionBudget":{"enabled":false,"maxUnavailable":1},"podLabels":{},"podSecurityContext":{},"replicaCount":1,"resources":{},"securityContext":{},"service":{"annotations":{},"appProtocol":"HTTP","extraPorts":[],"labels":{},"loadBalancer":{},"port":8888,"portName":"http","protocol":"TCP","targetPort":8888,"type":"ClusterIP"},"strategy":{},"terminationGracePeriodSeconds":30,"tolerations":[],"topologySpreadConstraints":[],"volumeMounts":[],"volumes":[]}` | OpenAEV caldera-server deployment configuration |
+| caldera | object | `{"affinity":{},"args":[],"autoscaling":{"enabled":false,"maxReplicas":100,"minReplicas":1,"targetCPUUtilizationPercentage":80},"command":[],"config":{},"dnsConfig":{},"dnsPolicy":"ClusterFirst","enabled":true,"env":{},"envFromSecrets":{},"gateway":{"annotations":{},"className":"","create":false,"enabled":false,"filters":[],"hostnames":[],"labels":{},"listeners":[{"name":"http","port":80,"protocol":"HTTP"}],"parentRefs":[{"name":"","namespace":""}],"rules":[{"matches":[{"path":{"type":"PathPrefix","value":"/"}}]}]},"image":{"pullPolicy":"IfNotPresent","repository":"openbas/caldera-server","tag":"5.1.0"},"imagePullSecrets":[],"ingress":{"annotations":{},"className":"","enabled":false,"hosts":[{"host":"chart-example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}],"tls":[]},"initContainers":[],"lifecycle":{},"networkPolicy":{"egress":[],"enabled":false,"ingress":[],"policyTypes":[]},"nodeSelector":{},"podAnnotations":{},"podDisruptionBudget":{"enabled":false,"maxUnavailable":1},"podLabels":{},"podSecurityContext":{},"replicaCount":1,"resources":{"requests":{"cpu":"100m","memory":"256Mi"}},"securityContext":{},"service":{"annotations":{},"appProtocol":"HTTP","extraPorts":[],"labels":{},"loadBalancer":{},"port":8888,"portName":"http","protocol":"TCP","targetPort":8888,"type":"ClusterIP"},"strategy":{},"terminationGracePeriodSeconds":30,"tolerations":[],"topologySpreadConstraints":[],"volumeMounts":[],"volumes":[]}` | OpenAEV caldera-server deployment configuration |
 | caldera.affinity | object | `{}` | Affinity for pod assignment </br> Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity |
 | caldera.args | list | `[]` | Configure args </br> Ref: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/ |
 | caldera.autoscaling | object | `{"enabled":false,"maxReplicas":100,"minReplicas":1,"targetCPUUtilizationPercentage":80}` | Autoscaling with CPU or memory utilization percentage </br> Ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/ |
@@ -110,7 +133,7 @@ helm show values openaev/openaev
 | caldera.podLabels | object | `{}` | Configure labels on Pods |
 | caldera.podSecurityContext | object | `{}` | Defines privilege and access control settings for a Pod </br> Ref: https://kubernetes.io/docs/concepts/security/pod-security-standards/ </br> Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
 | caldera.replicaCount | int | `1` | Number of replicas for the service |
-| caldera.resources | object | `{}` | The resources limits and requested </br> Ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ |
+| caldera.resources | object | `{"requests":{"cpu":"100m","memory":"256Mi"}}` | The resources limits and requested </br> Ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ </br> The OpenAEV docs give no sizing for Caldera; adjust to your workload. |
 | caldera.securityContext | object | `{}` | Defines privilege and access control settings for a Container </br> Ref: https://kubernetes.io/docs/concepts/security/pod-security-standards/ </br> Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
 | caldera.service | object | `{"annotations":{},"appProtocol":"HTTP","extraPorts":[],"labels":{},"loadBalancer":{},"port":8888,"portName":"http","protocol":"TCP","targetPort":8888,"type":"ClusterIP"}` | Kubernetes service to expose Pod </br> Ref: https://kubernetes.io/docs/concepts/services-networking/service/ |
 | caldera.service.annotations | object | `{}` | Annotations for the service |
@@ -182,29 +205,29 @@ helm show values openaev/openaev
 | networkPolicy.enabled | bool | `false` | Enable or disable NetworkPolicy |
 | networkPolicy.policyTypes | list | `[]` | Policy types |
 | nodeSelector | object | `{}` | Node labels for pod assignment </br> Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector |
-| opensearch | object | `{"enabled":true,"opensearchJavaOpts":"-Xmx512M -Xms512M","persistence":{"enabled":false},"singleNode":true}` | OpenSearch subchart deployment </br> Ref: https://github.com/opensearch-project/helm-charts/blob/main/charts/opensearch/values.yaml |
+| opensearch | object | `{"enabled":true,"opensearchJavaOpts":"-Xmx512M -Xms512M","persistence":{"enabled":false},"singleNode":true}` | OpenSearch subchart deployment </br> Ref: https://github.com/opensearch-project/helm-charts/blob/main/charts/opensearch/values.yaml </br> Recommended for production: 2 cores, 8 GB RAM, 16 GB SSD. Defaults stay small; set resources and persistence yourself. |
 | opensearch.enabled | bool | `true` | Enable or disable OpenSearch subchart |
 | podAnnotations | object | `{}` | Configure annotations on Pods |
 | podDisruptionBudget | object | `{"enabled":false,"maxUnavailable":1}` | Pod Disruption Budget </br> Ref: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/pod-disruption-budget-v1/ |
 | podLabels | object | `{}` | Configure labels on Pods |
 | podSecurityContext | object | `{}` | Defines privilege and access control settings for a Pod </br> Ref: https://kubernetes.io/docs/concepts/security/pod-security-standards/ </br> Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |
-| postgresql | object | `{"auth":{"database":"openaev","password":"ChangeMe","username":"user"},"enabled":true,"image":{"repository":"bitnamilegacy/postgresql","tag":"17.6.0-debian-12-r4"},"primary":{"persistence":{"enabled":false}},"replicaCount":1}` | PostgreSQL subchart deployment </br> Ref: https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml |
+| postgresql | object | `{"auth":{"database":"openaev","password":"ChangeMe","username":"user"},"enabled":true,"image":{"repository":"bitnamilegacy/postgresql","tag":"17.6.0-debian-12-r4"},"primary":{"persistence":{"enabled":false}},"replicaCount":1}` | PostgreSQL subchart deployment </br> Ref: https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml </br> Recommended for production: 2 cores, 8 GB RAM, 16 GB SSD. Defaults stay small; set resources and persistence yourself. |
 | postgresql.enabled | bool | `true` | Enable or disable PostgreSQL subchart |
-| rabbitmq | object | `{"auth":{"erlangCookie":"ChangeMe","password":"ChangeMe","username":"user"},"clustering":{"enabled":false},"enabled":true,"global":{"security":{"allowInsecureImages":true}},"image":{"repository":"bitnamilegacy/rabbitmq","tag":"4.1.2-debian-12-r1"},"persistence":{"enabled":false},"replicaCount":1}` | RabbitMQ subchart deployment </br> Ref: https://github.com/bitnami/charts/blob/main/bitnami/rabbitmq/values.yaml |
+| rabbitmq | object | `{"auth":{"erlangCookie":"ChangeMe","password":"ChangeMe","username":"user"},"clustering":{"enabled":false},"enabled":true,"global":{"security":{"allowInsecureImages":true}},"image":{"repository":"bitnamilegacy/rabbitmq","tag":"4.1.2-debian-12-r1"},"persistence":{"enabled":false},"replicaCount":1}` | RabbitMQ subchart deployment </br> Ref: https://github.com/bitnami/charts/blob/main/bitnami/rabbitmq/values.yaml </br> Recommended for production: 1 core, 512 MB RAM, 2 GB disk. Defaults stay small; set resources and persistence yourself. |
 | rabbitmq.enabled | bool | `true` | Enable or disable RabbitMQ subchart |
 | readinessProbe | object | `{"enabled":true,"failureThreshold":3,"initialDelaySeconds":10,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":1}` | Configure readinessProbe checker </br> Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes |
 | readinessProbeCustom | object | `{}` | Custom readinessProbe |
-| readyChecker | object | `{"enabled":false,"pullPolicy":"IfNotPresent","repository":"busybox","retries":30,"services":[{"address":"release-name-rustfs-svc","name":"rustfs","port":9000},{"name":"postgresql","port":5432},{"name":"rabbitmq","port":5672}],"tag":"latest","timeout":5}` | Enable or disable ready-checker |
+| readyChecker | object | `{"enabled":false,"pullPolicy":"IfNotPresent","repository":"busybox","retries":30,"services":[{"address":"release-name-rustfs-svc","name":"rustfs","port":9000},{"name":"postgresql","port":5432},{"name":"rabbitmq","port":5672}],"tag":"1.37.0","timeout":5}` | Enable or disable ready-checker |
 | readyChecker.enabled | bool | `false` | Enable or disable ready-checker |
 | readyChecker.pullPolicy | string | `"IfNotPresent"` | Pull policy for the image |
 | readyChecker.repository | string | `"busybox"` | Repository of the image |
 | readyChecker.retries | int | `30` | Number of retries before giving up |
 | readyChecker.services | list | `[{"address":"release-name-rustfs-svc","name":"rustfs","port":9000},{"name":"postgresql","port":5432},{"name":"rabbitmq","port":5672}]` | List services |
-| readyChecker.tag | string | `"latest"` | Overrides the image tag |
+| readyChecker.tag | string | `"1.37.0"` | Overrides the image tag |
 | readyChecker.timeout | int | `5` | Timeout for each check |
 | replicaCount | int | `1` | Number of replicas for the service |
-| resources | object | `{}` | The resources limits and requested </br> Ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ |
-| rustfs | object | `{"enabled":true,"ingress":{"enabled":false},"mode":{"distributed":{"enabled":false},"standalone":{"enabled":true}},"resources":{"requests":{"memory":"512Mi"}},"secret":{"rustfs":{"access_key":"ChangeMe","secret_key":"ChangeMe"}},"storageclass":{"name":""}}` | RustFS subchart deployment (S3-compatible object storage, standalone mode) </br> Ref: https://github.com/rustfs/rustfs/tree/main/helm/rustfs |
+| resources | object | `{"requests":{"cpu":2,"memory":"8Gi"}}` | The resources limits and requested </br> Ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ </br> Defaults follow the OpenAEV Core minimum (2 cores, 8 GB). </br> Ref: https://docs.openaev.io/latest/deployment/platform/overview/ |
+| rustfs | object | `{"enabled":true,"ingress":{"enabled":false},"mode":{"distributed":{"enabled":false},"standalone":{"enabled":true}},"resources":{"requests":{"memory":"512Mi"}},"secret":{"rustfs":{"access_key":"ChangeMe","secret_key":"ChangeMe"}},"storageclass":{"name":""}}` | RustFS subchart deployment (S3-compatible object storage, standalone mode) </br> Ref: https://github.com/rustfs/rustfs/tree/main/helm/rustfs </br> Recommended for production: 1 core, 128 MB RAM, 16 GB SSD. Defaults stay small; set resources and persistence yourself. |
 | rustfs.enabled | bool | `true` | Enable or disable RustFS subchart |
 | secrets | list | `[]` | Secrets values to create credentials and reference by envFromSecrets Generate Secret with following name: <release-name>-<name> </br> Ref: https://kubernetes.io/docs/concepts/configuration/secret/ |
 | securityContext | object | `{}` | Defines privilege and access control settings for a Container </br> Ref: https://kubernetes.io/docs/concepts/security/pod-security-standards/ </br> Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ |

@@ -11,13 +11,13 @@ spec:
   containers:
     - name: wget
       {{- if .Values.global.imageRegistry }}
-      image: "{{ .Values.global.imageRegistry }}/busybox"
+      image: "{{ .Values.global.imageRegistry }}/busybox:1.37.0"
       {{- else }}
-      image: busybox
+      image: busybox:1.37.0
       {{- end }}
-      # the server can still be booting after an upgrade, so retry for up to 5 minutes
+      # Retry: the server may still be starting right after an upgrade (e.g. probes disabled)
       command: ['sh', '-c']
       args:
-        - for i in $(seq 60); do wget -q -O /dev/null {{ include "openaev.fullname" . }}-server:{{ .Values.service.port }} && exit 0; sleep 5; done; exit 1
+        - for i in $(seq 1 24); do wget -q -T 5 -O /dev/null {{ include "openaev.fullname" . }}-server:{{ .Values.service.port }} && exit 0; sleep 10; done; exit 1
   restartPolicy: Never
 {{ end }}

@@ -207,3 +207,20 @@ rabbitmq.auth.existingErlangSecret: <release-name>-credentials
 ```
 
 More info. [chart values](https://github.com/bitnami/charts/blob/main/bitnami/rabbitmq/values.yaml)
+
+## Resources
+
+### Defaults
+
+The server requests 2 CPU and 8Gi and Caldera 100m and 256Mi (upstream gives no sizing for Caldera). These are the minimums from the [upstream documentation](https://docs.openaev.io/latest/deployment/platform/overview/); the full table is in the [chart README](../README.md#sizing).
+
+Collectors and injectors have no default: set `resources` on each item (documented minimum: 1 core, 128 MB). The bundled dependencies keep small defaults for test installs, so size them for production.
+
+On a small or local cluster, lower the requests:
+
+```yaml
+resources:
+  requests:
+    cpu: 250m
+    memory: 1Gi
+```

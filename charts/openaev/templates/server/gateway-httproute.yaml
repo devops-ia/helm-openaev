@@ -6,7 +6,7 @@ kind: HTTPRoute
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "openaev.labels" . | nindent 4 }}
+    {{- include "openaev.serverLabels" . | nindent 4 }}
   {{- with .Values.gateway.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}

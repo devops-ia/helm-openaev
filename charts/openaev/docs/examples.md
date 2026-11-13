@@ -70,7 +70,7 @@ In deep this config are deployed as a initial container which check the services
       initContainers:
       {{- range $service := .Values.readyChecker.services }}
       - name: ready-checker-{{ $service.name }}
-        image: busybox
+        image: busybox:1.37.0
         command:
           - 'sh'
           - '-c'
@@ -84,19 +84,19 @@ Output:
 ...
       initContainers:
       - name: ready-checker-rustfs
-        image: busybox
+        image: busybox:1.37.0
         command:
           - 'sh'
           - '-c'
           - 'RETRY=0; until [ $RETRY -eq 30 ]; do nc -zv openaev-ci-rustfs-svc 9000 && break; echo "[$RETRY/30] waiting service openaev-ci-rustfs-svc:9000 is ready"; sleep 5; RETRY=$(($RETRY + 1)); done'
       - name: ready-checker-postgresql
-        image: busybox
+        image: busybox:1.37.0
         command:
           - 'sh'
           - '-c'
           - 'RETRY=0; until [ $RETRY -eq 30 ]; do nc -zv openaev-ci-postgresql 5432 && break; echo "[$RETRY/30] waiting service openaev-ci-postgresql:5432 is ready"; sleep 5; RETRY=$(($RETRY + 1)); done'
       - name: ready-checker-rabbitmq
-        image: busybox
+        image: busybox:1.37.0
         command:
           - 'sh'
           - '-c'
