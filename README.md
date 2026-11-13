@@ -1,6 +1,6 @@
-# OpenBAS Helm Chart
+# OpenAEV Helm Chart
 
-[OpenBAS](https://github.com/OpenBAS-Platform/openbas) is an open source platform allowing organizations to plan, schedule and conduct cyber adversary simulation campaign and tests.
+[OpenAEV](https://github.com/OpenAEV-Platform/openaev) is an open source platform allowing organizations to plan, schedule and conduct cyber adversary simulation campaign and tests.
 
 ## Usage
 
@@ -14,14 +14,14 @@ Charts are available in:
 #### Add repository
 
 ```console
-helm repo add openbas https://devops-ia.github.io/helm-openbas
+helm repo add openaev https://devops-ia.github.io/helm-openaev
 helm repo update
 ```
 
 #### Install Helm chart
 
 ```console
-helm install [RELEASE_NAME] openbas/openbas
+helm install [RELEASE_NAME] openaev/openaev
 ```
 
 This install all the Kubernetes components associated with the chart and creates the release.
@@ -30,14 +30,14 @@ _See [helm install](https://helm.sh/docs/helm/helm_install/) for command documen
 
 ### OCI Registry
 
-Charts are also available in OCI format. The list of available charts can be found [here](https://github.com/devops-ia/helm-openbas/pkgs/container/helm-openbas%2Fopenbas).
+Charts are also available in OCI format. The list of available charts can be found [here](https://github.com/devops-ia/helm-openaev/pkgs/container/helm-openaev%2Fopenaev).
 
 #### Install Helm chart
 
 ```console
-helm install [RELEASE_NAME] oci://ghcr.io/devops-ia/helm-openbas/openbas --version=[version]
+helm install [RELEASE_NAME] oci://ghcr.io/devops-ia/helm-openaev/openaev --version=[version]
 ```
 
-## OpenBAS chart
+## OpenAEV chart
 
-Can be found in [openbas chart](https://github.com/devops-ia/helm-openbas/tree/main/charts/openbas).
+Can be found in [openaev chart](https://github.com/devops-ia/helm-openaev/tree/main/charts/openaev).
