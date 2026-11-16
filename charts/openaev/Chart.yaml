@@ -34,7 +34,7 @@ annotations:
       url: https://github.com/devops-ia/helm-openaev/issues
 dependencies:
   - name: rustfs
-    version: 1.0.4
+    version: 1.0.6
     repository: https://charts.rustfs.com
     condition: rustfs.enabled
   - name: opensearch
