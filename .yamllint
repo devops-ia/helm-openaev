@@ -1,8 +1,15 @@
+extends: default
 rules:
   document-start:
     present: false
   document-end:
     present: false
+  indentation:
+    spaces: consistent
+    indent-sequences: whatever
+  line-length: disable
+  truthy:
+    level: warning
   # helm-values-schema-json rewrites "key:  # @schema" with one space
   comments:
     min-spaces-from-content: 1
