@@ -57,7 +57,7 @@ testConnection: false
 
 # -- Environment variables to configure application
 # </br> Ref: https://docs.openaev.io/latest/deployment/configuration/#platform
-env:  # @schema skipProperties:true
+env: # @schema skipProperties:true
   # APP OPENAEV
   OPENAEV_ADMIN_EMAIL: admin@openaev.io
   OPENAEV_ADMIN_PASSWORD: ChangeMe
@@ -451,7 +451,7 @@ gateway:
 # </br> Ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 # </br> Defaults follow the OpenAEV Core minimum (2 cores, 8 GB).
 # </br> Ref: https://docs.openaev.io/latest/deployment/platform/overview/
-resources:  # @schema skipProperties:true
+resources: # @schema skipProperties:true
   requests:
     cpu: 2
     memory: 8Gi
@@ -462,7 +462,7 @@ resources:  # @schema skipProperties:true
 # </br> Ref: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/pod-disruption-budget-v1/
 podDisruptionBudget:
   enabled: false
-  maxUnavailable: 1  # @schema type:[integer, string]
+  maxUnavailable: 1 # @schema type:[integer, string]
   # minAvailable: 0
 
 # -- Autoscaling with CPU or memory utilization percentage
@@ -1149,7 +1149,7 @@ caldera:
   # -- The resources limits and requested
   # </br> Ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
   # </br> The OpenAEV docs give no sizing for Caldera; adjust to your workload.
-  resources:  # @schema skipProperties:true
+  resources: # @schema skipProperties:true
     requests:
       cpu: 100m
       memory: 256Mi
@@ -1160,7 +1160,7 @@ caldera:
   # </br> Ref: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/pod-disruption-budget-v1/
   podDisruptionBudget:
     enabled: false
-    maxUnavailable: 1  # @schema type:[integer, string]
+    maxUnavailable: 1 # @schema type:[integer, string]
     # minAvailable: 0
 
   # -- Autoscaling with CPU or memory utilization percentage
@@ -1228,7 +1228,7 @@ caldera:
 # -- OpenSearch subchart deployment
 # </br> Ref: https://github.com/opensearch-project/helm-charts/blob/main/charts/opensearch/values.yaml
 # </br> Recommended for production: 2 cores, 8 GB RAM, 16 GB SSD. Defaults stay small; set resources and persistence yourself.
-opensearch:  # @schema skipProperties:true
+opensearch: # @schema skipProperties:true
   # -- Enable or disable OpenSearch subchart
   enabled: true
 
@@ -1248,7 +1248,7 @@ opensearch:  # @schema skipProperties:true
 # -- RustFS subchart deployment (S3-compatible object storage, standalone mode)
 # </br> Ref: https://github.com/rustfs/rustfs/tree/main/helm/rustfs
 # </br> Recommended for production: 1 core, 128 MB RAM, 16 GB SSD. Defaults stay small; set resources and persistence yourself.
-rustfs:  # @schema skipProperties:true
+rustfs: # @schema skipProperties:true
   # -- Enable or disable RustFS subchart
   enabled: true
 
@@ -1283,14 +1283,14 @@ rustfs:  # @schema skipProperties:true
     name: ""
 
   # Resources
-  resources:  # @schema skipProperties:true
+  resources: # @schema skipProperties:true
     requests:
       memory: 512Mi
 
 # -- PostgreSQL subchart deployment
 # </br> Ref: https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml
 # </br> Recommended for production: 2 cores, 8 GB RAM, 16 GB SSD. Defaults stay small; set resources and persistence yourself.
-postgresql:  # @schema skipProperties:true
+postgresql: # @schema skipProperties:true
   # -- Enable or disable PostgreSQL subchart
   enabled: true
 
@@ -1324,7 +1324,7 @@ postgresql:  # @schema skipProperties:true
 # -- RabbitMQ subchart deployment
 # </br> Ref: https://github.com/bitnami/charts/blob/main/bitnami/rabbitmq/values.yaml
 # </br> Recommended for production: 1 core, 512 MB RAM, 2 GB disk. Defaults stay small; set resources and persistence yourself.
-rabbitmq:  # @schema skipProperties:true
+rabbitmq: # @schema skipProperties:true
   # -- Enable or disable RabbitMQ subchart
   enabled: true
 

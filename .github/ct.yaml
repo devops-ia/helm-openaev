@@ -8,6 +8,7 @@ upgrade: true
 validate-chart-schema: true
 validate-maintainers: false
 validate-yaml: true
+lint-conf: .yamllint
 chart-repos:
 - opensearch=https://opensearch-project.github.io/helm-charts/
 - rustfs=https://charts.rustfs.com
