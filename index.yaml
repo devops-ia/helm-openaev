@@ -13,6 +13,62 @@ entries:
           url: https://github.com/devops-ia/helm-openaev/issues
     apiVersion: v2
     appVersion: 3.261110.0
+    created: "2026-11-16T09:25:03.925092962Z"
+    dependencies:
+    - condition: rustfs.enabled
+      name: rustfs
+      repository: https://charts.rustfs.com
+      version: 1.0.6
+    - condition: opensearch.enabled
+      name: opensearch
+      repository: https://opensearch-project.github.io/helm-charts/
+      version: 3.9.0
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 16.7.27
+    - condition: rabbitmq.enabled
+      name: rabbitmq
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 16.0.14
+    description: A Helm chart to deploy the OpenAEV adversarial exposure validation
+      platform
+    digest: 795aade950448c75931f1cea7d6f1714692cd85b6627a31909cd85606a17c1fa
+    home: https://www.filigran.io/en/solutions/products/openaev/
+    icon: https://raw.githubusercontent.com/OpenAEV-Platform/docs/f4ca064020d75f4cf6776ab6825c9cb0ae25f03e/docs/assets/images/favicon.png
+    keywords:
+    - openaev
+    - cybersecurity
+    - purple-team
+    - attack-simulation
+    - breach-simulator
+    - threat
+    - analysis
+    kubeVersion: '>=1.23.0-0'
+    maintainers:
+    - email: hello@ialejandro.rocks
+      name: ialejandro
+      url: https://ialejandro.rocks
+    name: openaev
+    sources:
+    - https://github.com/devops-ia/helm-openaev
+    - https://github.com/OpenAEV-Platform/openaev
+    type: application
+    urls:
+    - https://github.com/devops-ia/helm-openaev/releases/download/v3.0.1/openaev-3.0.1.tgz
+    version: 3.0.1
+  - annotations:
+      artifacthub.io/category: security
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: Documentation
+          url: https://docs.openaev.io
+        - name: source
+          url: https://github.com/devops-ia/helm-openaev
+        - name: support
+          url: https://github.com/devops-ia/helm-openaev/issues
+    apiVersion: v2
+    appVersion: 3.261110.0
     created: "2026-11-13T21:57:17.328227737Z"
     dependencies:
     - condition: rustfs.enabled
@@ -9025,4 +9081,4 @@ entries:
     urls:
     - https://github.com/devops-ia/helm-openbas/releases/download/v1.0.0/openbas-1.0.0.tgz
     version: 1.0.0
-generated: "2026-11-13T21:57:17.32851761Z"
+generated: "2026-11-16T09:25:03.925909033Z"
