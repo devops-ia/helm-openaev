@@ -3,3 +3,6 @@ rules:
     present: false
   document-end:
     present: false
+  # helm-values-schema-json rewrites "key:  # @schema" with one space
+  comments:
+    min-spaces-from-content: 1
