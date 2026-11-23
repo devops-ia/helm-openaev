@@ -20,7 +20,7 @@ Kubernetes: `>=1.23.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.rustfs.com | rustfs | 1.0.6 |
-| https://opensearch-project.github.io/helm-charts/ | opensearch | 3.9.0 |
+| https://opensearch-project.github.io/helm-charts/ | opensearch | 3.10.0 |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 16.7.27 |
 | oci://registry-1.docker.io/bitnamicharts | rabbitmq | 16.0.14 |
 
